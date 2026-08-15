@@ -1,0 +1,5 @@
+# Per-machine shell settings. The tracked template is local.zsh.example.
+zsh/local.zsh
+
+# Files install.sh moves aside before symlinking.
+*.backup-*

@@ -1,0 +1,19 @@
+# Per-machine shell settings. Copy this to local.zsh and edit it:
+#
+#   cp zsh/local.zsh.example zsh/local.zsh
+#
+# local.zsh is listed in .gitignore, so what you put there stays on this
+# machine. This example file is tracked, so keep anything private out of it.
+#
+# Three shapes cover most of what ends up here. Guard each one the way these
+# are guarded — then a line for a tool this machine does not have costs a
+# failed test rather than an error at every shell start.
+
+# An alias:
+# alias k=kubectl
+
+# A directory added to PATH:
+# [ -d "$HOME/somewhere/bin" ] && export PATH="$HOME/somewhere/bin:$PATH"
+
+# A tool's own init script, sourced:
+# [ -s "$HOME/.sometool/init.zsh" ] && source "$HOME/.sometool/init.zsh"
