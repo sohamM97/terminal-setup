@@ -59,6 +59,7 @@ first; nothing is overwritten in place.
 | `tilix/Dracula.json` | `~/.config/tilix/schemes/Dracula.json` |
 | `zsh/local.zsh.example` | copied to `zsh/local.zsh` if that does not exist |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` |
+| `claude/CLAUDE.md` | `~/.claude/CLAUDE.md` |
 
 The scripts themselves:
 
@@ -160,6 +161,28 @@ work whenever Claude Code does arrive.
 The question answers itself with a no under `--dry`, and when standard input is
 not a terminal, so a dry run and a piped `curl ... | bash` both finish rather
 than wait for a keypress that cannot come.
+
+### CLAUDE.md
+
+`claude/CLAUDE.md` is symlinked to `~/.claude/CLAUDE.md`, the user-level
+instructions Claude Code loads at the start of every session in every project.
+Editing it here changes them at once, the same way `zsh/zshrc` works.
+
+Claude Code reads through the symlink. The one documented exception is Cowork
+on the desktop app, which skips a `~/.claude/CLAUDE.md` that is itself a
+symlink or hard link; terminal and IDE sessions are unaffected. If you start
+using Cowork, copy the file instead of linking it.
+
+Keep it under 200 lines. That is [Anthropic's own
+number](https://code.claude.com/docs/en/memory) — *"target under 200 lines per
+CLAUDE.md file. Longer files consume more context and reduce adherence"* — and
+the file says so about itself. Past that, the documented remedy is
+`~/.claude/rules/` with `paths:` frontmatter, which loads a rule only when
+Claude touches matching files. `@path` imports organise content but still load
+everything at launch, so they save no context.
+
+Instructions that belong to one project belong in that project's own
+`CLAUDE.md`, which is read after this one and wins where the two conflict.
 
 ### The status line
 

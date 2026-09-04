@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Install the Claude Code parts of this setup on their own: Claude Code itself
-# if it is missing, the status line script, and the settings in
-# claude/settings-fragment.json.
+# if it is missing, the status line script, claude/CLAUDE.md, and the settings
+# in claude/settings-fragment.json.
 #
 #   ./claude/install-claude.sh          apply
 #   ./claude/install-claude.sh --dry    print what would change
@@ -37,6 +37,14 @@ fi
 
 log "claude code status line"
 link claude/statusline-command.sh "$HOME/.claude/statusline-command.sh"
+
+# The user-level instructions Claude Code loads at the start of every session,
+# in every project. Symlinked rather than copied, so editing claude/CLAUDE.md
+# here changes them at once. Claude Code reads through the symlink — the one
+# exception is Cowork on the desktop app, which skips a ~/.claude/CLAUDE.md
+# that is itself a link.
+log "claude code CLAUDE.md"
+link claude/CLAUDE.md "$HOME/.claude/CLAUDE.md"
 
 log "claude code settings"
 SETTINGS="$HOME/.claude/settings.json"
