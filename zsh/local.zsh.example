@@ -10,7 +10,7 @@
 # failed test rather than an error at every shell start.
 
 # An alias:
-# alias k=kubectl
+# alias gs="git status"
 
 # A directory added to PATH:
 # [ -d "$HOME/somewhere/bin" ] && export PATH="$HOME/somewhere/bin:$PATH"

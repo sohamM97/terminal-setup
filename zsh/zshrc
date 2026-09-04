@@ -13,14 +13,42 @@ ZSH_THEME="kphoen"
 # git adds branch information to the prompt and a set of g* aliases.
 # zsh-autosuggestions proposes a completion from history as you type, in grey;
 # press the right arrow to accept it. It is not bundled with oh-my-zsh —
-# bootstrap.sh clones it into ~/.oh-my-zsh/custom/plugins.
+# install.sh clones it into ~/.oh-my-zsh/custom/plugins.
 plugins=(git zsh-autosuggestions)
+
+# Completion functions written by the install scripts — _kubectl, from
+# k8s/install-k8s.sh. This has to come before oh-my-zsh, which runs compinit;
+# compinit only picks up what is on fpath at the time it runs.
+[ -d "$HOME/.zsh/completions" ] && fpath=("$HOME/.zsh/completions" $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
 # fzf's own installer writes ~/.fzf.zsh. It binds Ctrl-R to fuzzy history
 # search and Ctrl-T to fuzzy file search.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Kubernetes. Skipped whole on a machine without kubectl, so this file stays
+# usable on one that has no Kubernetes tools at all.
+if command -v kubectl >/dev/null 2>&1; then
+  alias k=kubectl
+
+  # kubectl has kustomize built in, so there is no separate binary to install.
+  alias kustomize="kubectl kustomize"
+
+  # krew is kubectl's plugin manager. It installs plugins as kubectl-<name>
+  # here, and kubectl runs them as subcommands: kubectl-ctx becomes
+  # `kubectl ctx`, and `k ctx` through the alias. ctx switches cluster
+  # context and ns switches namespace — the kubectx and kubens programs,
+  # packaged as plugins rather than installed on their own.
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+  # k does not inherit kubectl's completion through the alias, so say so.
+  # The completion itself is ~/.zsh/completions/_kubectl, written once by
+  # k8s/install-k8s.sh and loaded by compinit above. Running `kubectl
+  # completion zsh` here instead works too, and costs about 75ms at every
+  # shell start: 0.22s against 0.14s, measured over five runs of each.
+  [ -f "$HOME/.zsh/completions/_kubectl" ] && compdef k=kubectl
+fi
 
 # Per-machine settings: PATH entries for whatever toolchains this machine has,
 # personal aliases, anything not worth sharing. local.zsh is ignored by git,

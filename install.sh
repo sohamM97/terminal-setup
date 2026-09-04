@@ -113,8 +113,10 @@ else
   log "  dconf not found, skipped"
 fi
 
-# install-claude.sh offers to install Claude Code if it is missing, and puts
-# the status line and settings in either way.
+# These two ask their own questions: install-k8s.sh about kubectl, krew, helm
+# and argocd, install-claude.sh about Claude Code. install-claude.sh puts the
+# status line and settings in whatever the answer was.
+TERMINAL_SETUP_NESTED=1 "$REPO/k8s/install-k8s.sh" "$@"
 TERMINAL_SETUP_NESTED=1 "$REPO/claude/install-claude.sh" "$@"
 
 log

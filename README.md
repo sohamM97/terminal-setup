@@ -9,6 +9,7 @@ What you get:
 - **oh-my-zsh** with the `kphoen` theme and the `git` + `zsh-autosuggestions` plugins
 - **tilix** as the terminal, with a Dracula colour scheme at 6% transparency
 - **fzf** for fuzzy history and file search (`Ctrl-R`, `Ctrl-T`)
+- **kubectl** as `k`, with krew and the `ctx` and `ns` plugins
 - a **Claude Code status line**
 
 ## Install
@@ -40,8 +41,8 @@ programs
 `zsh git curl tilix jq` come from apt; `oh-my-zsh`, `zsh-autosuggestions` and
 `fzf` come from their own installers. Answer no and it goes straight on to the
 config files. Making zsh the login shell is asked separately, because `chsh`
-wants your password and only takes effect at your next login. Claude Code has
-its own question further down.
+wants your password and only takes effect at your next login. The Kubernetes
+tools and Claude Code have their own questions further down.
 
 On a machine that already has all of it, there is no question at all — the run
 is only the symlinks. Every step checks before it acts, so re-running is
@@ -64,6 +65,7 @@ The scripts themselves:
 | script | what it does |
 |---|---|
 | `install.sh` | the whole thing: offers to install the programs, then puts the config files in place |
+| `k8s/install-k8s.sh` | the Kubernetes part on its own; `install.sh` always calls it |
 | `claude/install-claude.sh` | the Claude Code part on its own; `install.sh` always calls it |
 | `lib.sh` | the `log`, `run`, `link` and `confirm` helpers the two install scripts share; sourced, not run |
 | `tilix/tilix-settings.dconf` | loaded into dconf at `/com/gexperts/Tilix/` |
@@ -75,8 +77,9 @@ The scripts themselves:
 `zsh/local.zsh`, which the last lines of `zshrc` source if it exists.
 
 `local.zsh` is listed in `.gitignore` and never committed. The tracked file is
-`zsh/local.zsh.example`, a short template showing the three shapes such a file
-usually takes: an alias, a `PATH` entry, and sourcing a tool's own init script.
+`zsh/local.zsh.example`, a short template showing the three kinds of line such
+a file usually holds: an alias, a `PATH` entry, and a tool's own init script,
+sourced.
 `install.sh` copies it to `local.zsh` on a fresh clone. Edit that copy:
 
 ```sh
@@ -86,6 +89,50 @@ $EDITOR zsh/local.zsh
 Write each entry so it tests for the thing before using it, the way the
 template does. Then a line for a tool the machine does not have costs a failed
 test rather than an error at every shell start.
+
+## Kubernetes
+
+`k8s/install-k8s.sh` asks about four things, and only about the ones that are
+not already there:
+
+| tool | where it comes from |
+|---|---|
+| `kubectl` | the binary from `dl.k8s.io`, checksum-checked, into `/usr/local/bin` |
+| `krew` | kubectl's plugin manager, into `~/.krew` |
+| `ctx`, `ns` | `kubectl krew install ctx ns` |
+| `helm` | apt, from the repository at `packages.buildkite.com` |
+| `argocd` | the release binary from GitHub, into `/usr/local/bin` |
+
+kubectl, krew, `ctx` and `ns` are asked for together; helm and argocd get a
+question each, so a machine that needs no Helm chart can say no to that alone.
+Each command is the one that tool's own documentation gives — the URL is in a
+comment above it in the script.
+
+`ctx` and `ns` are the point of krew here. They are the `kubectx` and `kubens`
+programs, installed as kubectl plugins named `kubectl-ctx` and `kubectl-ns`
+rather than as commands of their own. kubectl runs any `kubectl-*` on `PATH`
+as a subcommand, so they are `kubectl ctx` and `kubectl ns` — and `k ctx` and
+`k ns` through the alias. That is why `~/.krew/bin` has to be on `PATH`.
+
+`zsh/zshrc` sets the shell side up, all of it inside a `command -v kubectl`
+test so a machine with no kubectl is unaffected:
+
+```sh
+alias k=kubectl
+alias kustomize="kubectl kustomize"          # kubectl has kustomize built in
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+compdef k=kubectl                            # completion, under the alias too
+```
+
+The completion itself is `~/.zsh/completions/_kubectl`, which the install
+script writes once with `kubectl completion zsh`. `zshrc` puts that directory
+on `fpath` before oh-my-zsh runs `compinit`, which then loads the file only
+when you complete a `k` or `kubectl` command. Running `kubectl completion zsh`
+at every shell start works too and is simpler, but costs about 75ms: 0.22s
+against 0.14s, over five runs of each.
+
+Re-run `./k8s/install-k8s.sh` after a kubectl upgrade to rewrite the
+completion file for the new version.
 
 ## Claude Code
 
