@@ -9,11 +9,11 @@ What you get:
 - **oh-my-zsh** with the `kphoen` theme and the `git` + `zsh-autosuggestions` plugins
 - **tilix** as the terminal, with a Dracula colour scheme at 6% transparency
 - **fzf** for fuzzy history and file search (`Ctrl-R`, `Ctrl-T`)
-- a **Claude Code status line**, installed only if Claude Code is present
+- a **Claude Code status line**
 
-## Install on a new machine
+## Install
 
-Ubuntu, from nothing:
+Ubuntu, from nothing — one script, whatever state the machine is in:
 
 ```sh
 # https
@@ -22,27 +22,30 @@ git clone https://github.com/sohamM97/terminal-setup.git ~/terminal-setup
 git clone git@github.com:sohamM97/terminal-setup.git ~/terminal-setup
 
 cd ~/terminal-setup
-./bootstrap.sh
+./install.sh --dry   # print what would change, touch nothing
+./install.sh         # apply
 ```
 
 Clone it anywhere — the scripts work out their own location, and `install.sh`
 points the symlinks at whatever path you chose.
 
-`bootstrap.sh` installs zsh, git, curl and tilix from apt, then oh-my-zsh,
-the zsh-autosuggestions plugin and fzf from their own installers, sets zsh as
-the login shell, and finally calls `install.sh` to put the config files in
-place. Every step checks first, so re-running it is harmless.
+Nothing is installed without a yes. `install.sh` lists the programs it cannot
+find and asks once:
 
-Log out and back in afterwards — `chsh` only takes effect on a new login.
-
-## Install just the config files
-
-If zsh, oh-my-zsh, tilix and fzf are already on the machine:
-
-```sh
-./install.sh --dry   # print what would change, touch nothing
-./install.sh         # apply
 ```
+programs
+  Missing: tilix jq fzf. Install them now? [y/N]
+```
+
+`zsh git curl tilix jq` come from apt; `oh-my-zsh`, `zsh-autosuggestions` and
+`fzf` come from their own installers. Answer no and it goes straight on to the
+config files. Making zsh the login shell is asked separately, because `chsh`
+wants your password and only takes effect at your next login. Claude Code has
+its own question further down.
+
+On a machine that already has all of it, there is no question at all — the run
+is only the symlinks. Every step checks before it acts, so re-running is
+harmless.
 
 `install.sh` replaces each target with a symlink into this repo, so editing
 `zsh/zshrc` here changes the shell immediately — no copying step to forget.
@@ -60,8 +63,7 @@ The scripts themselves:
 
 | script | what it does |
 |---|---|
-| `bootstrap.sh` | installs the programs, then calls `install.sh` |
-| `install.sh` | puts the config files in place |
+| `install.sh` | the whole thing: offers to install the programs, then puts the config files in place |
 | `claude/install-claude.sh` | the Claude Code part on its own; `install.sh` always calls it |
 | `lib.sh` | the `log`, `run`, `link` and `confirm` helpers the two install scripts share; sourced, not run |
 | `tilix/tilix-settings.dconf` | loaded into dconf at `/com/gexperts/Tilix/` |
@@ -121,7 +123,8 @@ window used as a percentage, and cost so far.
 
 Claude Code passes it a JSON object on standard input, which the script reads
 with `jq` — so `jq` has to be installed for the line to appear at all.
-`bootstrap.sh` installs it; the install script warns if it is missing.
+`jq` is one of the programs `install.sh` offers to install; say no to that and
+`claude/install-claude.sh` warns that the line will not work.
 
 To try it without starting Claude Code, feed it the JSON yourself:
 
