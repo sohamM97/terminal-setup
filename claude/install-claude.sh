@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Install the Claude Code parts of this setup on their own: the status line
-# script, and the settings in claude/settings-fragment.json.
+# Install the Claude Code parts of this setup on their own: Claude Code itself
+# if it is missing, the status line script, and the settings in
+# claude/settings-fragment.json.
 #
 #   ./claude/install-claude.sh          apply
 #   ./claude/install-claude.sh --dry    print what would change
 #
-# install.sh runs this too, but skips it when Claude Code is absent. Run it
-# directly if you install Claude Code later on.
+# install.sh runs this too. Run it directly to redo just this part.
 
 set -euo pipefail
 
@@ -14,9 +14,25 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=../lib.sh
 source "$REPO/lib.sh"
 
-if ! command -v claude >/dev/null 2>&1; then
-  log "claude is not on PATH — install Claude Code first, then run this again."
-  exit 1
+log "claude code"
+if command -v claude >/dev/null 2>&1; then
+  log "  already installed: $(claude --version)"
+elif confirm "Claude Code is not installed. Install it now?"; then
+  log "  running the installer from https://claude.ai/install.sh"
+  curl -fsSL https://claude.ai/install.sh | bash
+  # The installer puts claude in ~/.local/bin. This shell started before that
+  # existed, so add it here for the version check below.
+  export PATH="$HOME/.local/bin:$PATH"
+  hash -r 2>/dev/null || true
+  if ! command -v claude >/dev/null 2>&1; then
+    log "  the installer finished but left no claude on PATH — install it by hand, then run this again"
+    exit 1
+  fi
+  log "  installed $(claude --version)"
+  log "  open a new terminal for claude to be on PATH there too"
+else
+  log "  not installing it — the status line and settings below are still put in"
+  log "  place, and take effect whenever Claude Code arrives"
 fi
 
 log "claude code status line"

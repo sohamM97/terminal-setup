@@ -41,13 +41,9 @@ else
   log "  dconf not found, skipped"
 fi
 
-if command -v claude >/dev/null 2>&1; then
-  TERMINAL_SETUP_NESTED=1 "$REPO/claude/install-claude.sh" "$@"
-else
-  log "claude code"
-  log "  claude not installed, skipped"
-  log "  run ./claude/install-claude.sh after installing Claude Code"
-fi
+# install-claude.sh offers to install Claude Code if it is missing, and puts
+# the status line and settings in either way.
+TERMINAL_SETUP_NESTED=1 "$REPO/claude/install-claude.sh" "$@"
 
 log
 log "Done. Open a new terminal, or run: exec zsh"

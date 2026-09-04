@@ -54,7 +54,7 @@ first; nothing is overwritten in place.
 | `zsh/zshrc` | `~/.zshrc` |
 | `tilix/Dracula.json` | `~/.config/tilix/schemes/Dracula.json` |
 | `zsh/local.zsh.example` | copied to `zsh/local.zsh` if that does not exist |
-| `claude/statusline-command.sh` | `~/.claude/statusline-command.sh`, if Claude Code is installed |
+| `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` |
 
 The scripts themselves:
 
@@ -62,8 +62,8 @@ The scripts themselves:
 |---|---|
 | `bootstrap.sh` | installs the programs, then calls `install.sh` |
 | `install.sh` | puts the config files in place |
-| `claude/install-statusline.sh` | the Claude Code part on its own; `install.sh` calls it when Claude Code is present |
-| `lib.sh` | the `log`, `run` and `link` helpers the two install scripts share; sourced, not run |
+| `claude/install-claude.sh` | the Claude Code part on its own; `install.sh` always calls it |
+| `lib.sh` | the `log`, `run`, `link` and `confirm` helpers the two install scripts share; sourced, not run |
 | `tilix/tilix-settings.dconf` | loaded into dconf at `/com/gexperts/Tilix/` |
 
 ## Per-machine settings: `zsh/local.zsh`
@@ -87,16 +87,30 @@ test rather than an error at every shell start.
 
 ## Claude Code
 
-`install.sh` skips this whole section when `claude` is not on `PATH`, and
-creates no `~/.claude` directory, so the rest of the setup is useful on a
-machine without Claude Code. If you install Claude Code later, run the step on
-its own:
+`install.sh` hands this section to `claude/install-claude.sh`, which you can
+also run on its own:
 
 ```sh
-./claude/install-claude.sh
+./claude/install-claude.sh          # apply
+./claude/install-claude.sh --dry    # print what would change
 ```
 
-It takes `--dry` too, and refuses to run if `claude` is still not on `PATH`.
+If `claude` is not on `PATH` it asks first:
+
+```
+claude code
+  Claude Code is not installed. Install it now? [y/N]
+```
+
+Answer `y` and it runs the official installer, `curl -fsSL
+https://claude.ai/install.sh | bash`, which puts `claude` in `~/.local/bin`.
+Answer anything else — including a bare Enter — and it carries on to the status
+line and the settings without it; those are files under `~/.claude/`, and they
+work whenever Claude Code does arrive.
+
+The question answers itself with a no under `--dry`, and when standard input is
+not a terminal, so a dry run and a piped `curl ... | bash` both finish rather
+than wait for a keypress that cannot come.
 
 ### The status line
 
