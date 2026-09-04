@@ -5,5 +5,7 @@
   },
   "permissions": {
     "defaultMode": "manual"
-  }
+  },
+  "remoteControlAtStartup": false,
+  "autoUploadSessions": false
 }

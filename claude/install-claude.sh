@@ -72,7 +72,10 @@ fragment["statusLine"]["command"] = fragment["statusLine"]["command"].replace(
 
 changed = merge(settings, fragment)
 if not changed:
-    print("  already set: statusLine, permissions.defaultMode")
+    print(
+        "  already set: statusLine, permissions.defaultMode, "
+        "remoteControlAtStartup, autoUploadSessions"
+    )
 else:
     with open(settings_path, "w") as f:
         json.dump(settings, f, indent=2)

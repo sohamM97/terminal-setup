@@ -128,12 +128,22 @@ echo '{"workspace":{"current_dir":"'"$PWD"'"},"model":{"display_name":"Opus 5"}}
   },
   "permissions": {
     "defaultMode": "manual"
-  }
+  },
+  "remoteControlAtStartup": false,
+  "autoUploadSessions": false
 }
 ```
 
 `manual` means Claude Code asks before running anything, rather than acting on
 its own — it is the mode the pause indicator under the prompt refers to.
+
+`remoteControlAtStartup: false` keeps Remote Control — the feature that lets the
+Claude mobile and web apps drive a session running in this terminal — switched
+off when a session starts. Start a session with `claude --remote-control` when
+you actually want to hand that one to your phone.
+
+`autoUploadSessions: false` stops transcripts of terminal sessions being sent to
+claude.ai, so they stay on this machine under `~/.claude/projects/`.
 
 The fragment names only these keys. The install script merges it into
 `~/.claude/settings.json` dictionary by dictionary, so every other key survives
