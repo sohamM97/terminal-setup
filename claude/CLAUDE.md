@@ -11,18 +11,15 @@ Memory files are point-in-time snapshots, not live state. Before citing one — 
 ## CLAUDE.md — keep each file under 200 lines
 
 Target under 200 lines per `CLAUDE.md`, user-level and project-level alike.
-Longer files eat context and Claude follows them less reliably. Check with
-`wc -l` after adding a section, and if the file goes over, compress rather than
-append: cut anything derivable from the repo (directory listings, dependency
-lists, `list-projects` output), collapse tables of values into a sentence, and
-keep the pitfalls and rationale — those are what nobody can look up.
+Longer files eat context and Claude follows them less reliably. Check `wc -l`
+after adding a section; if it goes over, compress rather than append — cut
+anything derivable from the repo, collapse tables of values into a sentence,
+and keep the pitfalls and rationale, which are what nobody can look up.
 
-The 200 comes from Anthropic's own documentation, at
-https://code.claude.com/docs/en/memory — *"Size: target under 200 lines per
-CLAUDE.md file. Longer files consume more context and reduce adherence."*
-Verified 2026-09-04. It is their number, not a house rule, so if that page says
-something different later, follow the page. Re-read it before arguing with a
-file that is over the limit.
+The 200 is Anthropic's number, at https://code.claude.com/docs/en/memory:
+*"Size: target under 200 lines per CLAUDE.md file. Longer files consume more
+context and reduce adherence."* Verified 2026-09-04 — re-read it before arguing
+with a file that is over, and follow the page if it now says otherwise.
 
 Past compressing, the documented remedy is `.claude/rules/` with `paths:`
 frontmatter, which loads instructions only when Claude touches matching files.
@@ -40,14 +37,9 @@ python -m flake8 $F     # bash: two arguments, works
 ```
 
 bash word-splits an unquoted `$F`; zsh does not. Same for `$(...)` returning
-several results. Just list the arguments instead — it is usually shorter anyway:
-
-```sh
-python -m flake8 a.py b.py
-```
-
-Single-value variables are fine everywhere (`$ISORT_LIBS`, a path, a URL); it is
-only multi-word values that split differently.
+several results. Just list the arguments instead — `python -m flake8 a.py b.py`
+— which is usually shorter anyway. Single-value variables are fine everywhere
+(a path, a URL); only multi-word values split differently.
 
 Other places the two shells differ, worth checking before blaming the logic:
 
@@ -77,6 +69,13 @@ Before deleting or recommending deletion of any cloud resource (VMs, disks, snap
 When I ask you to change anything at the user level — a skill or hook under `~/.claude/skills/` or `~/.claude/hooks/`, this file at `~/.claude/CLAUDE.md`, or `~/.claude/statusline-command.sh` — after making the change check whether that file is symlinked into a git repo (follow the symlink: `~/.claude/skills/<name>` may point into `~/projects/personal/claude-skills/`, and `~/.claude/CLAUDE.md` into `~/projects/personal/terminal-setup/`). If it is:
 1. Inform me that the edit landed in the backing repo (name the repo).
 2. Ask whether I want to `/commit` the changes there.
+3. **Check that repo's visibility before writing an example into it**
+   (`gh repo view --json visibility`) — `terminal-setup` is **public**, and
+   **treat anything on Bitbucket as private**, which `gh` cannot tell you.
+   Nothing from private work goes in a public file: no employer or colleague
+   names, no private repo, branch, ticket or hostname, no internal path, no
+   slash command that only exists in a private repo. Invent a generic example —
+   a real one is what comes to mind first, so this is where it slips.
 
 Don't auto-commit — always ask first.
 
@@ -123,6 +122,29 @@ write **the private key**, not *the private half*; name the two items instead
 of calling them halves. Fractions of actual quantities ("half the commits",
 "two and a half years") are fine — the tic is *half* standing in for a named
 part of something.
+
+**the whole of it** — *that was the whole of it*, *walked him through the whole
+of it*. Flagged 07-09-2026. Another tic, and the plain phrasings are shorter:
+**all there is**, **all of it**, **everything**, or just name the thing that is
+complete. Where it means a total, give the total. *The whole of X* attached to a
+real noun ("the whole of the standard library") is fine — the tic is the dangling
+*it*, standing for something a sentence away.
+
+**which is exactly the…** — *which is exactly why it fails*, *which is exactly
+the case this check exists for*, *that is exactly how it would have gone*.
+Flagged 07-09-2026. It asserts a perfect fit between two things instead of
+showing one, and *exactly* is doing the arguing. Usually the clause can go:
+state the relationship plainly, or cut it and let the two facts sit next to each
+other. Where the fit really is the point, name what matches what.
+
+**When two clauses contradict each other, join them with *but*, *yet* or
+*however* — never *and*.** Flagged 13-08-2026. *"Renaming it is worth doing and
+has not been done"* needs *but*. An additive conjunction tells the reader the two
+halves agree, so they must go back and work out that they do not. **A reading
+check**: ask of every *and* joining two full clauses whether the second cuts
+against the first. The reverse counts too — *but* between clauses that agree. A
+grep finds one family only (comma or dash, *and*, a subject, a negation), so the
+reading stands whatever it says.
 
 **But keep the real name of a thing, and explain it the first time.** The ban
 is on metaphor, not on technical vocabulary. Never paraphrase a real term into
