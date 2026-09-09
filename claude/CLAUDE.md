@@ -99,6 +99,7 @@ thing.** Banned outright, with what to write instead:
 | bites us | if this is wrong, X breaks — name X |
 | spike | a small throwaway script that checks one thing |
 | guard | the check that stops X — name what it stops |
+| seam | where the two parts meet — name the argument, function or module |
 
 Same for idioms and phrasal verbs where a plain verb exists. The general test:
 if a term needs the reader to have read the source to parse it, it belongs in
@@ -130,12 +131,17 @@ complete. Where it means a total, give the total. *The whole of X* attached to a
 real noun ("the whole of the standard library") is fine — the tic is the dangling
 *it*, standing for something a sentence away.
 
-**which is exactly the…** — *which is exactly why it fails*, *which is exactly
-the case this check exists for*, *that is exactly how it would have gone*.
-Flagged 07-09-2026. It asserts a perfect fit between two things instead of
-showing one, and *exactly* is doing the arguing. Usually the clause can go:
-state the relationship plainly, or cut it and let the two facts sit next to each
-other. Where the fit really is the point, name what matches what.
+**which is exactly the… / is exactly what…** — *which is exactly why it fails*,
+*which is exactly the case this check exists for*, *that is exactly how it would
+have gone*, *this is exactly what forces the workaround*, *that is exactly what
+the flag does*. Flagged 07-09-2026, extended to the *is exactly what* form on
+09-09-2026, and it applies to chat as much as to comments. It asserts a perfect
+fit between two things instead of showing one, and *exactly* is doing the
+arguing. Usually the clause can go: state the relationship plainly, or cut it
+and let the two facts sit next to each other. Where the fit really is the point,
+name what matches what — *"passing our own async_client skips the endpoint
+resolution, so the path has to be written by hand"*, not *"that is exactly what
+forces it"*.
 
 **When two clauses contradict each other, join them with *but*, *yet* or
 *however* — never *and*.** Flagged 13-08-2026. *"Renaming it is worth doing and
