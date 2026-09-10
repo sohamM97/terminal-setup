@@ -113,30 +113,38 @@ one every time is what makes writing monotonous. The current offender is
 **shape** — *the shape of it*, *the same shape*, *that shape* — which is
 usually standing where a fact belongs, and is the table's general test wearing
 a word that is not on the table. Say the thing: "a month of it in the head, a
-day of it in the hands" rather than "both of these were that shape". Flagged
-16-08-2026; if another word starts appearing everywhere, add it here.
+day of it in the hands" rather than "both of these were that shape". If another
+word starts appearing everywhere, add it here.
 
 **half** — *the private half*, *the other half of it*, *both halves*, *the
-first half of the work*. Flagged 25-08-2026, and it is a Claude Code tic rather
-than a word I reach for. It is nearly always vaguer than the thing it replaces:
+first half of the work*. A Claude Code tic rather than a word I reach for, and
+nearly always vaguer than the thing it replaces:
 write **the private key**, not *the private half*; name the two items instead
 of calling them halves. Fractions of actual quantities ("half the commits",
 "two and a half years") are fine — the tic is *half* standing in for a named
 part of something.
 
 **the whole of it** — *that was the whole of it*, *walked him through the whole
-of it*. Flagged 07-09-2026. Another tic, and the plain phrasings are shorter:
+of it*. Another tic, and the plain phrasings are shorter:
 **all there is**, **all of it**, **everything**, or just name the thing that is
 complete. Where it means a total, give the total. *The whole of X* attached to a
 real noun ("the whole of the standard library") is fine — the tic is the dangling
 *it*, standing for something a sentence away.
 
+**prose** — *stays prose*, *a prose docstring*, *prose-style*, *in prose*. It
+names a category instead of the thing, leaving the reader to guess what the
+writing looks like. Say what is there: *sentences and paragraphs*, *no `Args:`
+or `Returns:` sections*, *one paragraph, no headings*. Where it is genuinely
+the opposite of code or of a table, name that contrast — *the paragraph above
+the code block*. Describing published writing ("his prose is dense") is fine;
+the tic is *prose* meaning "text formatted the way I am not about to
+describe".
+
 **which is exactly the… / is exactly what…** — *which is exactly why it fails*,
 *which is exactly the case this check exists for*, *that is exactly how it would
 have gone*, *this is exactly what forces the workaround*, *that is exactly what
-the flag does*. Flagged 07-09-2026, extended to the *is exactly what* form on
-09-09-2026, and it applies to chat as much as to comments. It asserts a perfect
-fit between two things instead of showing one, and *exactly* is doing the
+the flag does*. It applies to chat as much as to comments, and asserts a
+perfect fit between two things instead of showing one, with *exactly* doing the
 arguing. Usually the clause can go: state the relationship plainly, or cut it
 and let the two facts sit next to each other. Where the fit really is the point,
 name what matches what — *"passing our own async_client skips the endpoint
@@ -144,8 +152,8 @@ resolution, so the path has to be written by hand"*, not *"that is exactly what
 forces it"*.
 
 **When two clauses contradict each other, join them with *but*, *yet* or
-*however* — never *and*.** Flagged 13-08-2026. *"Renaming it is worth doing and
-has not been done"* needs *but*. An additive conjunction tells the reader the two
+*however* — never *and*.** *"Renaming it is worth doing and has not been
+done"* needs *but*. An additive conjunction tells the reader the two
 halves agree, so they must go back and work out that they do not. **A reading
 check**: ask of every *and* joining two full clauses whether the second cuts
 against the first. The reverse counts too — *but* between clauses that agree. A
