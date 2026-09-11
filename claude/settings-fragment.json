@@ -7,5 +7,6 @@
     "defaultMode": "manual"
   },
   "remoteControlAtStartup": false,
-  "autoUploadSessions": false
+  "autoUploadSessions": false,
+  "outputStyle": "Concise"
 }

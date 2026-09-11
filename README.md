@@ -217,7 +217,8 @@ echo '{"workspace":{"current_dir":"'"$PWD"'"},"model":{"display_name":"Opus 5"}}
     "defaultMode": "manual"
   },
   "remoteControlAtStartup": false,
-  "autoUploadSessions": false
+  "autoUploadSessions": false,
+  "outputStyle": "Concise"
 }
 ```
 
@@ -231,6 +232,10 @@ you actually want to hand that one to your phone.
 
 `autoUploadSessions: false` stops transcripts of terminal sessions being sent to
 claude.ai, so they stay on this machine under `~/.claude/projects/`.
+
+`outputStyle: "Concise"` makes every session start in the built-in Concise
+output style: Claude gives the result first and leaves out step-by-step
+narration and closing recaps.
 
 The fragment names only these keys. The install script merges it into
 `~/.claude/settings.json` dictionary by dictionary, so every other key survives

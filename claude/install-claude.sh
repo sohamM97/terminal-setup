@@ -98,7 +98,7 @@ changed = merge(settings, fragment)
 if not changed:
     print(
         "  already set: statusLine, permissions.defaultMode, "
-        "remoteControlAtStartup, autoUploadSessions"
+        "remoteControlAtStartup, autoUploadSessions, outputStyle"
     )
 else:
     with open(settings_path, "w") as f:
