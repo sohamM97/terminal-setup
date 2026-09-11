@@ -85,71 +85,14 @@ An explanation that only makes sense to someone who already understands it has
 explained nothing. These apply everywhere I write: answers in chat, code
 comments, docstrings, docs and commit messages.
 
-**Don't use borrowed metaphor that names your opinion of a thing instead of the
-thing.** Banned outright, with what to write instead:
-
-| banned | say what actually happens |
-|---|---|
-| plumbing | bookkeeping, the connecting steps, the parts nobody reads |
-| load-bearing | why it matters: "every other check depends on it" |
-| pre-flight | check it before asking / before the request |
-| hydrate | fill in, load the values into |
-| bake in | build it in, decide it at build time, hard-code |
-| out of the box | with no configuration, by default, as shipped |
-| bites us | if this is wrong, X breaks — name X |
-| spike | a small throwaway script that checks one thing |
-| guard | the check that stops X — name what it stops |
-| seam | where the two parts meet — name the argument, function or module |
-
-Same for idioms and phrasal verbs where a plain verb exists. The general test:
-if a term needs the reader to have read the source to parse it, it belongs in
-the source, not the explanation. A word that names your assessment of a thing
-("critical", "hairy", "elegant") rather than the thing is usually the same
-mistake wearing different clothes.
-
-**Watch the frequency of a favourite word, not only the banned ones.** Some
-words are fine individually and wrong in bulk, because reaching for the same
-one every time is what makes writing monotonous. The current offender is
-**shape** — *the shape of it*, *the same shape*, *that shape* — which is
-usually standing where a fact belongs, and is the table's general test wearing
-a word that is not on the table. Say the thing: "a month of it in the head, a
-day of it in the hands" rather than "both of these were that shape". If another
-word starts appearing everywhere, add it here.
-
-**half** — *the private half*, *the other half of it*, *both halves*, *the
-first half of the work*. A Claude Code tic rather than a word I reach for, and
-nearly always vaguer than the thing it replaces:
-write **the private key**, not *the private half*; name the two items instead
-of calling them halves. Fractions of actual quantities ("half the commits",
-"two and a half years") are fine — the tic is *half* standing in for a named
-part of something.
-
-**the whole of it** — *that was the whole of it*, *walked him through the whole
-of it*. Another tic, and the plain phrasings are shorter:
-**all there is**, **all of it**, **everything**, or just name the thing that is
-complete. Where it means a total, give the total. *The whole of X* attached to a
-real noun ("the whole of the standard library") is fine — the tic is the dangling
-*it*, standing for something a sentence away.
-
-**prose** — *stays prose*, *a prose docstring*, *prose-style*, *in prose*. It
-names a category instead of the thing, leaving the reader to guess what the
-writing looks like. Say what is there: *sentences and paragraphs*, *no `Args:`
-or `Returns:` sections*, *one paragraph, no headings*. Where it is genuinely
-the opposite of code or of a table, name that contrast — *the paragraph above
-the code block*. Describing published writing ("his prose is dense") is fine;
-the tic is *prose* meaning "text formatted the way I am not about to
-describe".
-
-**which is exactly the… / is exactly what…** — *which is exactly why it fails*,
-*which is exactly the case this check exists for*, *that is exactly how it would
-have gone*, *this is exactly what forces the workaround*, *that is exactly what
-the flag does*. It applies to chat as much as to comments, and asserts a
-perfect fit between two things instead of showing one, with *exactly* doing the
-arguing. Usually the clause can go: state the relationship plainly, or cut it
-and let the two facts sit next to each other. Where the fit really is the point,
-name what matches what — *"passing our own async_client skips the endpoint
-resolution, so the path has to be written by hand"*, not *"that is exactly what
-forces it"*.
+**Banned outright**, in chat as well as in files: *plumbing, load-bearing, pre-flight,
+hydrate, bake in, out of the box, bites us, spike, guard, seam*. Each names an opinion of a
+thing instead of the thing; say what actually happens. The same goes for idioms and grading
+words ("critical", "hairy", "elegant"). **Watch in bulk**: *shape*, *half* standing for a named
+part, *the whole of it*, *prose* as a category, and *which is exactly…*. These rules hold on
+their own. If the `code-tells` skill is installed (from `sohamM97/claude-skills`), it adds a
+replacement for each word and the full rules for comments and commit messages; run it before
+committing.
 
 **When two clauses contradict each other, join them with *but*, *yet* or
 *however* — never *and*.** *"Renaming it is worth doing and has not been
