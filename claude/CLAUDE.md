@@ -90,9 +90,9 @@ hydrate, bake in, out of the box, bites us, spike, guard, seam*. Each names an o
 thing instead of the thing; say what actually happens. The same goes for idioms and grading
 words ("critical", "hairy", "elegant"). **Watch in bulk**: *shape*, *half* standing for a named
 part, *the whole of it*, *prose* as a category, and *which is exactly…*. These rules hold on
-their own. If the `code-tells` skill is installed (from `sohamM97/claude-skills`), it adds a
-replacement for each word and the full rules for comments and commit messages; run it before
-committing.
+their own. If the `code-polish` skill is installed (from `sohamM97/claude-skills`), it adds a
+replacement for each word, the full rules for comments and commit messages, and checks on the
+names, signatures and docstrings a diff introduces; run it before committing.
 
 **When two clauses contradict each other, join them with *but*, *yet* or
 *however* — never *and*.** *"Renaming it is worth doing and has not been
