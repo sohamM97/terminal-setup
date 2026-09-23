@@ -48,6 +48,16 @@ Other places the two shells differ, worth checking before blaming the logic:
   may legitimately match nothing.
 - **Arrays** index from 1 in zsh and 0 in bash, and are declared differently.
 
+## Editing files — use the Edit and Write tools, never a script
+
+Change a file with the Edit tool (or Write for a new file), one edit per call.
+Those show me the diff in VS Code, where I review it before it lands. Never
+edit through Bash — no `python` script doing `str.replace`, no `sed -i`, no
+heredoc overwriting a file — even to batch many small changes: a script's
+changes reach disk with no diff shown, and I have to dig them out of
+`git diff` afterwards. Generated files are the exception, such as a migration
+written by `makemigrations` or a lockfile.
+
 ## Cloud Documentation
 
 When answering factual questions about any cloud platform (AWS, Azure, GCP, etc.) — pricing, limits, behavior, configuration:
