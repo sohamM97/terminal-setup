@@ -120,6 +120,11 @@ nouns are what someone will grep for, and a paraphrase is longer, vaguer and
 unsearchable. Write the name and what it does in one breath, then just use the
 word.
 
+**Name a value by the type the code in front of you uses, never another
+language's.** In Python, a parsed JSON object is a `dict` and a JSON array a
+`list`. "Object" means any Python value, so "a parameter that is not an object"
+is wrong when the code checks `isinstance(parameter, dict)`. Say "a dict".
+
 **Lead with a concrete example, not an abstract description.** Show the actual
 input and the actual output. This is the correction I get asked for most often;
 reach for the worked example first, not as decoration afterwards.
