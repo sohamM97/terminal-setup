@@ -136,6 +136,12 @@ the fact is in your head. Mechanical check: each time one appears, ask **which
 things am I choosing between, and have I just named them?** If not, name them —
 and if they need a fact to make sense, state that fact first.
 
+*Everything*, *anything* and *all of it* fail the same way when they stand for
+a set the reader has not been shown: "everything the nodes can be built from"
+names none of it, while "the MCP servers, knowledge bases and functions a node
+can use" names all of it and is no longer. If the list is too long to write,
+that is the signal it needed a name of its own.
+
 Worked example. This is unclear:
 
 > Both host names an Azure resource publishes answer on this path, so whichever
