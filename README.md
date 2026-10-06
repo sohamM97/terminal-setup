@@ -250,6 +250,12 @@ same on every machine, and the symlink is what connects it here.
 
 To add another setting, put it in the fragment and re-run the script.
 
+### Newlines in the prompt
+
+In Tilix, Shift+Enter submits the prompt, the same as Enter. Use `Alt+Enter`
+or `Ctrl+J` to start a new line instead. `/terminal-setup` cannot fix this,
+because Tilix is not one of the terminals it supports.
+
 ### Skills
 
 Skills live in their own repository, <https://github.com/sohamM97/claude-skills>,
