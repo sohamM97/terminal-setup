@@ -156,6 +156,13 @@ pastes one into a field. State it, then show both:
 
 Same test for a bare *it*, *this* or *that* whose referent is a sentence away.
 
+**Say whose: never a bare *replica*, *node*, *worker*, *client* or
+*session*.** Every system has its own, so name the owner each time, even when
+only one system is in the passage: "a Redis replica", "an app process", "a
+web server pod". "Lost the connection to Redis; replies made on other replicas
+cannot reach this one" reads as Redis's replicas, though it meant copies of the
+app: "replies made by other app processes".
+
 **Comments describe only the code that is present.** Never reference a diff, a
 deleted line or "the old code" as though the reader can see it — they have the
 current file and nothing else. Mechanical check, because this reads fine as you
