@@ -64,21 +64,21 @@ For a bug fix or a change in behaviour, **write the test, run it and show it
 failing, then write the change.** A test seen only passing proves nothing, and
 undoing the change afterwards to watch it fail is slower and error-prone.
 
+## Understanding code — /show-me and Mermaid
+
+When I am trying to understand code, ask me whether I would like to use the `show-me` skill; don't run it unasked. Whenever you write a Mermaid diagram, remind me to paste it into https://mermaid.live, because the terminal shows Mermaid as raw text.
+
 ## Cloud Documentation
 
-When answering factual questions about any cloud platform (AWS, Azure, GCP, etc.) — pricing, limits, behavior, configuration:
-1. Always verify from official documentation using MCP tools or web search before responding
-2. Do not rely on general knowledge alone for cloud facts — always cross-check
-3. Cite the source documentation URL in your response
+For factual questions about any cloud platform (AWS, Azure, GCP, etc.) — pricing, limits, behavior, configuration — verify from official documentation using MCP tools or web search, never from general knowledge alone, and cite the source documentation URL.
 
 CRITICAL: For any cost or pricing related questions, NEVER estimate from memory. Always look up current pricing from official documentation or pricing pages first. Incorrect cost estimates can lead to bad infrastructure decisions.
 
 ## Cloud Resource Deletion
 
 Before deleting or recommending deletion of any cloud resource (VMs, disks, snapshots, databases, etc.):
-1. Always record the full resource details (size, type, attached volumes, configuration) BEFORE deletion
-2. This is essential for accurate cost savings reporting — once a resource is deleted, its metadata is gone
-3. When the user says they will delete something, proactively look up and note the resource details immediately, before they act on it
+1. Always record the full resource details (size, type, attached volumes, configuration) BEFORE deletion. Cost savings reporting needs them, and once a resource is deleted its metadata is gone.
+2. When the user says they will delete something, proactively look up and note the resource details immediately, before they act on it
 
 ## User-level Edits (symlinked repos)
 
