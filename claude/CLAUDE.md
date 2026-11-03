@@ -58,11 +58,11 @@ changes reach disk with no diff shown, and I have to dig them out of
 `git diff` afterwards. Generated files are the exception, such as a migration
 written by `makemigrations` or a lockfile.
 
-## Tests — write the test first, and show it failing
+## Tests — in a repo that has them, write the test first and show it failing
 
-For a bug fix or a change in behaviour, **write the test, run it and show it
-failing, then write the change.** A test seen only passing proves nothing, and
-undoing the change afterwards to watch it fail is slower and error-prone.
+If the repo has unit tests, for a bug fix or a change in behaviour **write the
+test, run it and show it failing, then write the change.** A test seen only
+passing proves nothing. If it has none, don't add any; verify the change another way.
 
 ## Understanding code — /show-me and Mermaid
 
